@@ -18,11 +18,14 @@ var commentRoutes    = require("./routes/comments"),
     campgroundRoutes = require("./routes/campgrounds"),
     indexRoutes      = require("./routes/index")
     
-mongoose.connect("mongodb://localhost/yelp_camp_v9");
+// mongoose.connect("mongodb://localhost/yelp_camp_v9");
+mongoose.connect("mongodb://lenon:superman46@ds127492.mlab.com:27492/yelp_camper");
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride('_method'));
+app.use(flash());
 app.use(cookieParser('secret'));
 
 // seedDB(); //seed the database
@@ -34,7 +37,7 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
-app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
